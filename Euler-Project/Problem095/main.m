@@ -32,10 +32,12 @@
 #import <Foundation/Foundation.h>
 #define MAX_LENGTH 1000000
 
-enum NumType {
-    PerfectNumber = MAX_LENGTH+1,
-    
-} int;
+typedef enum NumType {
+    PerfectNumber = -1, // 完全数
+    PrimeNumber = -2,   // 素数
+    LargeNumber = -3,   // 超过 MAX_LENGTH 的数
+    RunedNumber = -4,   // 被计算过的数
+}NumType;
 
 int sumOfProperDivisors(int num) {
     int sum = 1;
@@ -48,7 +50,7 @@ int sumOfProperDivisors(int num) {
             }
         }
     }
-    NSLog(@"sumOfProperDivisors(%d) = %d", num, sum);
+//    NSLog(@"sumOfProperDivisors(%d) = %d", num, sum);
     return sum;
 }
 
@@ -59,13 +61,27 @@ int main(int argc, const char * argv[]) {
         for (int i=2; i<=MAX_LENGTH; i++) {
             if (flag[i] == 0) {
                 int sum = sumOfProperDivisors(i);
+                if (sum == 1) {
+                    flag[i] = PrimeNumber;
+                    continue;
+                }
+                else if (sum == i) {
+                    flag[i] = PerfectNumber;
+                    continue;
+                }
+                
                 while (sum != i) {
-                    if (sum > MAX_LENGTH || sum == 1) {
-                        flag[i] = -1;
+                    if (sum > MAX_LENGTH) {
+                        flag[i] = LargeNumber;
                         break;
                     }
+                    if (flag[sum] < 0) {
+                        flag[i] = RunedNumber;
+                        break;
+                    } else if (flag[sum] == 0) {
+                        flag[sum] = RunedNumber;
+                    }
                     flag[i]++;
-                    flag[sum] = -1;
                     sum = sumOfProperDivisors(sum);
                 }
             }

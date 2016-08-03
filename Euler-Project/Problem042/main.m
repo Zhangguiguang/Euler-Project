@@ -59,9 +59,9 @@ int main(int argc, const char * argv[]) {
             }
             sum -= ('A'-1)*length;
             count += flag[sum];
-//            if (flag[sum]) {
-//                NSLog(@"%3d, %@", sum, word);
-//            }
+            //            if (flag[sum]) {
+            //                NSLog(@"%3d, %@", sum, word);
+            //            }
         }
         NSLog(@"count = %d", count);
     }

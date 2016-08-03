@@ -342,7 +342,7 @@
 				3448B07E1D4F8A2C0082ED55 /* Problem038 */,
 				34D4D0271D52261B0098D9BE /* Problem042 */,
 				34C0C0581D504D5E0014241C /* Problem052 */,
-				3491F50A1D50B43E001B003D /* Problem095x */,
+				3491F50A1D50B43E001B003D /* Problem095 */,
 				3448B00C1D4F87250082ED55 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -459,12 +459,11 @@
 			path = Problem038;
 			sourceTree = "<group>";
 		};
-		3491F50A1D50B43E001B003D /* Problem095x */ = {
+		3491F50A1D50B43E001B003D /* Problem095 */ = {
 			isa = PBXGroup;
 			children = (
 				3491F50B1D50B43E001B003D /* main.m */,
 			);
-			name = Problem095x;
 			path = Problem095;
 			sourceTree = "<group>";
 		};

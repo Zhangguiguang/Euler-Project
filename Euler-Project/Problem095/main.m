@@ -20,13 +20,21 @@
 /*
  创建一个数组 flag[1000000] = {0};
  循环i 从 2 -> 1000000
- if flag[i] != 0, 跳过i
- else flag[i] == 0 
-    计算i的真因数之和 = x, 若x>1000000, flag[i]=-1, 结束数字i的计算
-                        若x == i, 结束数字i的计算
-                        若x == 1, 这是个素数, flag[x] = -1, 结束计算
-                        若x<=1000000, flag[i]++; flag[x]=-1; 继续计算x的真因数之和y,继续以上的操作
- 计算结束，遍历数组，找到最大值，并输出这个元素的下标
+ 计算i的真因数之和 = x, 若x>1000000, flag[i]=LargeNumber,
+                     若x == i, flag[i]=PerfectNumber,
+                     若x == 1, flag[i]=PrimeNumber
+                     否则 flag[i] = x
+ 
+ 遍历flag，先找长度为2的链，再遍历找长度为3的链。。。找到这样的链，把这些数字都标记为CircleNumber
+ 
+ length = 2 : 220, 1184, 2620, 5020, 6232, 10744, 12285, 17296, 63020, 66928, 67095, 69615, 79750, 100485, 122265, 122368, 141664, 142310, 171856, 176272, 185368, 196724, 280540, 308620, 319550, 356408, 437456, 469028, 503056, 522405, 600392, 609928, 624184, 635624, 643336, 667964, 726104, 802725, 879712, 898216,
+ ....
+ length = 5 : 12496,
+ ......
+ length = 28 : 14316,
+ 
+ 实际上，能构成链的只有这么3种长度
+ 
  */
 
 #import <Foundation/Foundation.h>
@@ -36,7 +44,7 @@ typedef enum NumType {
     PerfectNumber = -1, // 完全数
     PrimeNumber = -2,   // 素数
     LargeNumber = -3,   // 超过 MAX_LENGTH 的数
-    RunedNumber = -4,   // 被计算过的数
+    CircleNumber = -4
 }NumType;
 
 int sumOfProperDivisors(int num) {
@@ -54,45 +62,71 @@ int sumOfProperDivisors(int num) {
     return sum;
 }
 
+int finish(int* flag, int length) {
+    for (int i=0; i<length; i++) {
+        if (flag[i] > 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        int flag[MAX_LENGTH+1] = {0};
+        int flag[MAX_LENGTH+1] = {LargeNumber, LargeNumber};
         
         for (int i=2; i<=MAX_LENGTH; i++) {
             if (flag[i] == 0) {
                 int sum = sumOfProperDivisors(i);
                 if (sum == 1) {
                     flag[i] = PrimeNumber;
-                    continue;
                 }
                 else if (sum == i) {
                     flag[i] = PerfectNumber;
+                }
+                else if (sum > MAX_LENGTH) {
+                    flag[i] = LargeNumber;
+                }
+                else {
+                    flag[i] = sum;
+                }
+            }
+        }
+        
+//        int num = 14316;
+//        for (int i=0; i<29; i++) {
+//            printf("%d → ", num=flag[num]);
+//        }
+        
+        int length = 2;
+        while (!finish(flag, MAX_LENGTH+1)) {
+            printf("length = %d : ", length);
+            for (int i=2; i<=MAX_LENGTH; i++) {
+                if (flag[i] < 0) {
                     continue;
                 }
-                
-                while (sum != i) {
-                    if (sum > MAX_LENGTH) {
-                        flag[i] = LargeNumber;
+                int x = i;
+                for (int j=0; j<length; j++) {
+                    x = flag[x];
+                    if (x < 0) {
+                        flag[i] = x;
                         break;
                     }
-                    if (flag[sum] < 0) {
-                        flag[i] = RunedNumber;
-                        break;
-                    } else if (flag[sum] == 0) {
-                        flag[sum] = RunedNumber;
+                }
+                // 满足长度为length的链
+                if (x == i) {
+                    printf("%d, ", i);
+                    for (int j=0; j<length; j++) {
+                        int y = flag[x];
+                        flag[x] = CircleNumber;
+                        x = y;
                     }
-                    flag[i]++;
-                    sum = sumOfProperDivisors(sum);
                 }
             }
+            printf("\n");
+            length ++;
         }
-        int max = 0;
-        for (int i=2; i<=MAX_LENGTH; i++) {
-            if (max < flag[i]) {
-                max = flag[i];
-                printf("max = %d, num = %d", max, i);
-            }
-        }
+        
     }
     return 0;
 }

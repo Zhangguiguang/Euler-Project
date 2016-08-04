@@ -27,7 +27,7 @@ int score(NSString *name, int order) {
         sum += [name characterAtIndex:i];
     }
     sum -= (length * ('A'-1));
-    //    NSLog(@"order = %4d, sum = %3d, score = %6d, string = %@", order, sum, order*sum, name);
+//    NSLog(@"order = %4d, sum = %3d, score = %6d, string = %@", order, sum, order*sum, name);
     return sum*order;
 }
 

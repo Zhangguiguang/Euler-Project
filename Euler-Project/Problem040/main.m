@@ -38,11 +38,8 @@ int main(int argc, const char * argv[]) {
         for (int i=1; index<count; i++) {
             // 就是个数数字的问题
             int length = 1;
-            int divisor = 10;
-            while (i/divisor > 0) {
-                length++;
-                divisor *= 10;
-            }
+            while (i/powOf10[length++] > 0);
+            length--;
             
             currentPlace += length;
             if (currentPlace >= decimalPlaces[index]) {

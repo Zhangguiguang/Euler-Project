@@ -10,13 +10,16 @@
 
 // 判断素数
 BOOL isPrimeNumber(long num) {
+    if (num<=1) {
+        return NO;
+    }
     long end = sqrt(num);
     for (long i=2; i<=end; i++) {
         if (num%i == 0) {
-            return 0;
+            return NO;
         }
     }
-    return 1;
+    return YES;
 }
 
 // 计算一个数的真约数（不包含本身）之和
@@ -71,12 +74,13 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // 这里存一些经常会用的方法
         
-        // 计算一个数字的位数
-        int powOf10[] = {1, 10, 100, 1000, 10000, 100000, 1000000};
-        int num = 444;
-        int length = 1;
-        while (num/powOf10[length++] > 0);
-        length--;
+        
+        for (int i=0; i<49; i++) {
+            if (isPrimeNumber(i)) {
+                NSLog(@"%d", i);
+            }
+        }
+        
         
     }
     return 0;

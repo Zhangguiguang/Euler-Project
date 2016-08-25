@@ -45,10 +45,12 @@ BOOL isPalindrome(int num) {
     while (num/powOf10[length++] > 0);
     length--;
     
+    int high = 0;
+    int low  = 0;
     for (int i=0; i<length/2; i++) {
-        int high = num / powOf10[length-1-i*2];
+        high = num / powOf10[length-1-i*2];
         num %= powOf10[length-1-i*2];
-        int low = num % 10;
+        low = num % 10;
         num /= 10;
         if (high != low) {
             printf("not palindrome\n");

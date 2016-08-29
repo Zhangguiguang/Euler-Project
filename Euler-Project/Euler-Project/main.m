@@ -72,16 +72,24 @@ BOOL isPalindromeWithBase(const int num, int base) {
     return num==num2;
 }
 
+// 反转数字
+int reverse(int digital) {
+    int temp = 0;
+    while (digital > 0) {
+        temp = temp * 10 + digital % 10;
+        digital /= 10;
+    }
+    return temp;
+}
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // 这里存一些经常会用的方法
         
-        
-        for (int i=0; i<49; i++) {
-            if (isPrimeNumber(i)) {
-                NSLog(@"%d", i);
-            }
-        }
+        // 数组清0
+//        int a[4]={1,2,3,4};
+//        memset(a,0,4*sizeof(int));
+
         
         
     }

@@ -684,7 +684,7 @@
 				344E91E41D6E8E9500F15F0C /* Problem048 */,
 				34FA17311D538E4E005CC830 /* Problem050 */,
 				34C0C0581D504D5E0014241C /* Problem052 */,
-				344E91D91D6E82F500F15F0C /* Problem055x */,
+				344E91D91D6E82F500F15F0C /* Problem055 */,
 				34AFC65D1D6DA02C00813C91 /* Problem058 */,
 				34D4D0321D523FDC0098D9BE /* Problem074 */,
 				3491F50A1D50B43E001B003D /* Problem095 */,
@@ -819,12 +819,11 @@
 			path = Problem038;
 			sourceTree = "<group>";
 		};
-		344E91D91D6E82F500F15F0C /* Problem055x */ = {
+		344E91D91D6E82F500F15F0C /* Problem055 */ = {
 			isa = PBXGroup;
 			children = (
 				344E91DA1D6E82F500F15F0C /* main.m */,
 			);
-			name = Problem055x;
 			path = Problem055;
 			sourceTree = "<group>";
 		};
@@ -2513,6 +2512,7 @@
 				344E91DD1D6E82F500F15F0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		344E91E71D6E8E9500F15F0C /* Build configuration list for PBXNativeTarget "Problem048" */ = {
 			isa = XCConfigurationList;
@@ -2521,6 +2521,7 @@
 				344E91E91D6E8E9500F15F0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		344E91F21D6E928500F15F0C /* Build configuration list for PBXNativeTarget "Problem045" */ = {
 			isa = XCConfigurationList;
@@ -2529,6 +2530,7 @@
 				344E91F41D6E928500F15F0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3491F50D1D50B43E001B003D /* Build configuration list for PBXNativeTarget "Problem095" */ = {
 			isa = XCConfigurationList;

@@ -23,16 +23,95 @@
  */
 
 /*
+ 这个问题的关键不是计算量，而是防止溢出，
+ 1xxx9 + 9xxx1 = 1xxxx0, 这个数字会扩大10倍，虽然并不是每次迭代都扩大10倍，但经过50次迭代，一个long肯定装不下。
+ 就按最大扩大10倍算，数字最后会有不超过50位数。
  
+ 计算中，每计算一个数，得到另一个倒序的数，完全可以把它们看做相同的数，47和74，它们的计算步骤，结果完全相同。
+ 先计算了47，之后遇到74，完全可以用47的结果来标记它。
+ XXXX 这招会导致错误的结果， 196是利克瑞尔数, 但6910不是，所以还是老老实实，一个一个数的计算。
  
  */
 
 #import <Foundation/Foundation.h>
+#define MAX_DIGITAL 10001
+#define MAX_LENGTH  50
+
+// 反转int
+int reverseDigital(int digital) {
+    int temp = 0;
+    while (digital > 0) {
+        temp = temp * 10 + digital % 10;
+        digital /= 10;
+    }
+    return temp;
+}
+
+// 判断数组里面表示的数是否是回文数
+BOOL isPalindrome(int* arr, int length) {
+    while (length > 0 && arr[--length] == 0);
+    if (length < 0) return NO;
+    for (int i=length; i>(length-1)/2; i--) {
+        if (arr[i] != arr[length-i]) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+// 将数组里面表示的数，加上它的反转的数
+void reverseAndAdd(int *arr, int length) {
+    while (length > 0 && arr[--length] == 0);
+    if (length < 0) return;
+    for (int i=length; i>(length-1)/2; i--) {
+        arr[i] += arr[length-i];
+        arr[length-i] = arr[i];
+    }
+    // 进位
+    for (int i=0; i<=length; i++) {
+        if (arr[i]>=10) {
+            arr[i+1] += arr[i]/10;
+            arr[i] %= 10;
+        }
+    }
+}
+
+void printArr(int *arr, int length) {
+    for (int i=0; i<length; i++) {
+        printf("%d", arr[i]);
+    }
+    printf("\n");
+}
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // insert code here...
-        NSLog(@"Hello, World!");
+        int number[MAX_LENGTH] = {0};
+        int count = 0;
+        
+        for (int i=1; i<MAX_DIGITAL; i++) {
+            memset(number, 0, sizeof(int) * MAX_LENGTH);
+            int temp = i;
+            int j=0;
+            while (temp>0) {
+                number[j++] = temp%10;
+                temp /= 10;
+            }
+            temp = 1;
+            for (j=0; j<MAX_LENGTH; j++) {
+                reverseAndAdd(number, MAX_LENGTH);
+                if (isPalindrome(number, MAX_LENGTH)) {
+                    temp = 0;
+                    break;
+                }
+            }
+            if (temp==1) {
+                count ++;
+                printf("%d, ", i);
+            }
+        }
+        
+        printf("\n");
+        printf("%d\n", count);
     }
     return 0;
 }

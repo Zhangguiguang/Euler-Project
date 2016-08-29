@@ -571,11 +571,12 @@
 			path = Problem021;
 			sourceTree = "<group>";
 		};
-		342133DA1D548CF400B1894C /* Problem156 */ = {
+		342133DA1D548CF400B1894C /* Problem156x */ = {
 			isa = PBXGroup;
 			children = (
 				342133DB1D548CF400B1894C /* main.m */,
 			);
+			name = Problem156x;
 			path = Problem156;
 			sourceTree = "<group>";
 		};
@@ -607,7 +608,7 @@
 				34C0C0581D504D5E0014241C /* Problem052 */,
 				34D4D0321D523FDC0098D9BE /* Problem074 */,
 				3491F50A1D50B43E001B003D /* Problem095 */,
-				342133DA1D548CF400B1894C /* Problem156 */,
+				342133DA1D548CF400B1894C /* Problem156x */,
 				3448B00C1D4F87250082ED55 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -2070,6 +2071,7 @@
 				342133B21D5461A700B1894C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		342133BC1D5467E400B1894C /* Build configuration list for PBXNativeTarget "Problem029" */ = {
 			isa = XCConfigurationList;
@@ -2078,6 +2080,7 @@
 				342133BE1D5467E400B1894C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		342133C71D546FB200B1894C /* Build configuration list for PBXNativeTarget "Problem025" */ = {
 			isa = XCConfigurationList;
@@ -2086,6 +2089,7 @@
 				342133C91D546FB200B1894C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		342133D21D54843300B1894C /* Build configuration list for PBXNativeTarget "Problem021" */ = {
 			isa = XCConfigurationList;
@@ -2094,6 +2098,7 @@
 				342133D41D54843300B1894C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		342133DD1D548CF400B1894C /* Build configuration list for PBXNativeTarget "Problem156" */ = {
 			isa = XCConfigurationList;
@@ -2102,6 +2107,7 @@
 				342133DF1D548CF400B1894C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3448B0061D4F87250082ED55 /* Build configuration list for PBXProject "Euler-Project" */ = {
 			isa = XCConfigurationList;

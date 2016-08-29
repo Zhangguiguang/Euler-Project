@@ -24,20 +24,13 @@
  所以，只需要对x从正整数n遍历到2n, 计算出有多少个正整数y, 即表示有多少个不同解
  
  这个方法十分低效。。。
+ 2016-08-29 17:15:34.359 Problem108[7761:159294] start
  n = 180180, solution = 1013
+ 2016-08-29 17:18:29.650 Problem108[7761:159294] end
  */
 
 #import <Foundation/Foundation.h>
 #define DIFFERENT_SOLUTION 1000
-
-BOOL hasSolution(long x, long n) {
-    long xn  = x * n;
-    long x_n = x - n;
-    if (xn % x_n == 0) {
-        return YES;
-    }
-    return NO;
-}
 
 BOOL isPrimeNumber(long num) {
     if (num<=1) {
@@ -55,16 +48,24 @@ BOOL isPrimeNumber(long num) {
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         long n = 1000; // 要有超过1000种不同解， 首先 2n-n >= 1000
+        long x = 0;
+        long xn  = 0;
+        long x_n = 0;
         int solutionCount = 0;
         
+        NSLog(@"start");
         while (1) {
             if (isPrimeNumber(n)) {
                 n++;
                 continue;
             }
             solutionCount = 0;
-            for (long x=n+1; x<=2*n; x++) {
-                if (hasSolution(x, n)) {
+            xn  = n * n;
+            x_n = 0;
+            for (x=n+1; x<=2*n; x++) {
+                xn += n;
+                x_n++;
+                if (xn % x_n == 0) {
                     solutionCount ++;
                 }
             }
@@ -74,6 +75,7 @@ int main(int argc, const char * argv[]) {
             n ++;
         }
         printf("n = %ld, solution = %d\n", n, solutionCount);
+        NSLog(@"end");
     }
     return 0;
 }

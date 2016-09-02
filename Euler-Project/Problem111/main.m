@@ -34,21 +34,47 @@
  如果某个数字d的次数m == M(10, d), 那么对应d的 S[d] += prime
  如果d的次数m > M(10, d), 那么 M[d] = m, S[d] = prime
  
- 5分钟计算了1%
+ 5分钟计算了0.1%，猜测是判断质数花费了大量时间
+ 需要改进判断方法。
+ 判断的数中最大的是，100亿-1， 它的平方根 < 10万
+ 因此，先把小于10万的质数找出来，为一个集合，
+ 判断是否是质数，只需要判断一个数能否被集合里面的质数整除即可
+ 10分钟计算1%。。。还是超慢
+ 如果某个数字大于5个，那么其他数字一定不会很多，直接结束这个素数的数字统计，然而，这个想法是失败的。。
+ 每分解出一个数字就要判断一次，似乎反而拉慢了进度，而且这样只会得出所有的M(10, d) <= 5的错误结果
+ 
+ 根据素数定理， 10亿以内的素数大约有5000W个， 而100亿以内大约有45000W个，
+ 那么在我们需要计算的范围(10亿~100亿)内，素数大约有4亿个。。对这4亿个数统计也要花大量的时间啊！
+ 计算程序运行时间，得出结果，判断素数花费的时间，是分解素数几百上千倍，看来，找素数似乎还需要进一步优化
+ 
  */
 
 #import <Foundation/Foundation.h>
 #define NUM_START 1000000001
 #define NUM_END   10000000000
+#define SIZE      100000
 #define LENGTH    10
 
-BOOL isPrimeNumber(long num) {
+int primeList[10000] = {0};
+int primeLength = 0;
+
+BOOL isPrimeNumber(int num) {
     if (num<=1) {
         return NO;
     }
-    long end = sqrt(num);
-    for (long i=2; i<=end; i++) {
+    int end = sqrt(num);
+    for (int i=2; i<=end; i++) {
         if (num%i == 0) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+BOOL largeNumberIsPrime(long num) {
+    long end = sqrt(num);
+    for (int i=0; i<primeLength || primeList[i]>end; i++) {
+        if (num%primeList[i] == 0) {
             return NO;
         }
     }
@@ -63,8 +89,28 @@ int main(int argc, const char * argv[]) {
         
         int cM[LENGTH] = {0};
         long prime = 0;
-        for (long i=NUM_START; i<NUM_END; i+=2) {
+        
+        // 先找出100000以内的素数
+        for (int i=3; i<SIZE; i+=2) {
             if (isPrimeNumber(i)) {
+                primeList[primeLength++] = i;
+            }
+        }
+        NSLog(@"%ld", sizeof(int));
+        
+        time_t jTime = 0;
+        time_t cTime = 0;
+        time_t start = 0;
+        time_t end   = 0;
+        BOOL f = 0;
+        for (long i=NUM_START; i<NUM_END; i+=2) {
+            start = clock();
+            f = largeNumberIsPrime(i);
+            end = clock();
+            jTime += end - start;
+            
+            if (f) {
+                start = clock();
                 memset(cM, 0, sizeof(int) * LENGTH);
                 prime = i;
                 while (prime > 0) {
@@ -81,6 +127,8 @@ int main(int argc, const char * argv[]) {
                         S[d] = i;
                     }
                 }
+                end = clock();
+                cTime += end-start;
             }
         }
         

@@ -90,8 +90,14 @@ int main(int argc, const char * argv[]) {
 //        int a[4]={1,2,3,4};
 //        memset(a,0,4*sizeof(int));
 
-        
-        
+        int count = 0;
+        for (int i=3; i<100000; i+=2) {
+            if (isPrimeNumber(i)) {
+                printf("%d, ", i);
+                count ++;
+            }
+        }
+        printf("count = %d\n", count);
     }
     return 0;
 }
